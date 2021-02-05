@@ -18,6 +18,13 @@ defmodule OnboardWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    live "/templates", TemplateLive.Index, :index
+    live "/templates/new", TemplateLive.Index, :new
+    live "/templates/:id/edit", TemplateLive.Index, :edit
+
+    live "/templates/:id", TemplateLive.Show, :show
+    live "/templates/:id/show/edit", TemplateLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
