@@ -5,6 +5,8 @@ defmodule Onboard.Templates.Template do
   schema "templates" do
     field :name, :string
 
+    many_to_many :documents, Onboard.Documents.Document, join_through: Onboard.TemplateDoc
+
     timestamps()
   end
 
@@ -13,5 +15,6 @@ defmodule Onboard.Templates.Template do
     template
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> cast_assoc(:documents)
   end
 end

@@ -2,11 +2,13 @@ defmodule Onboard.TemplatesTest do
   use Onboard.DataCase
 
   alias Onboard.Templates
+  alias Onboard.Documents
 
   describe "templates" do
     alias Onboard.Templates.Template
+    alias Onboard.TemplateDoc
 
-    @valid_attrs %{name: "some name"}
+    @valid_attrs %{name: "some name", documents: []}
     @update_attrs %{name: "some updated name"}
     @invalid_attrs %{name: nil}
 
@@ -59,6 +61,30 @@ defmodule Onboard.TemplatesTest do
     test "change_template/1 returns a template changeset" do
       template = template_fixture()
       assert %Ecto.Changeset{} = Templates.change_template(template)
+    end
+
+    test "add_document_to_template/1 adds a document to a template" do
+      {:ok, document} = Documents.create_document(%{name: "Document"})
+      {:ok, template} = Templates.create_template(%{name: "Template"})
+
+      {:ok, %TemplateDoc{} = _template} =
+        Templates.add_document_to_template(%{template_id: template.id, document_id: document.id})
+
+      template = Templates.get_template!(template.id)
+      assert length(template.documents) == 1
+    end
+
+    test "remove_document_from_template/2 removes a document from a template" do
+      {:ok, document} = Documents.create_document(%{name: "Document"})
+      {:ok, template} = Templates.create_template(%{name: "Template"})
+
+      {:ok, %TemplateDoc{} = _template} =
+        Templates.add_document_to_template(%{template_id: template.id, document_id: document.id})
+
+      template = Templates.get_template!(template.id)
+      assert length(template.documents) == 1
+
+      {1, nil} = Templates.remove_document_from_template(template.id, document.id)
     end
   end
 end

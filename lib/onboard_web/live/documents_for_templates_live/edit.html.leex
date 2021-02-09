@@ -1,0 +1,54 @@
+<h1>Add Documents to Template</h1>
+<h2>Template Title: <%= @template.name %></h2>
+
+<h3>Assigned Documents</h3>
+
+<table id="assigned-documents">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for document <- @template.documents do  %>
+      <tr>
+        <td><%= document.name %>
+        <td>
+          <span
+            id="<%= "remove-#{document.id}" %>"
+            phx-click="remove-document"
+            phx-value-document-id="<%= document.id %>" >
+              Remove
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Unassigned Documents</h3>
+
+<table id="unassigned-documents">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for document <- @documents do  %>
+      <tr>
+        <td><%= document.name %>
+        <td>
+          <span
+            id="<%= "add-#{document.id}" %>"
+            phx-click="add-document"
+            phx-value-document-id="<%= document.id %>" >
+              Add
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

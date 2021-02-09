@@ -25,6 +25,15 @@ defmodule OnboardWeb.Router do
 
     live "/templates/:id", TemplateLive.Show, :show
     live "/templates/:id/show/edit", TemplateLive.Show, :edit
+
+    live "/documents", DocumentLive.Index, :index
+    live "/documents/new", DocumentLive.Index, :new
+    live "/documents/:id/edit", DocumentLive.Index, :edit
+
+    live "/documents/:id", DocumentLive.Show, :show
+    live "/documents/:id/show/edit", DocumentLive.Show, :edit
+
+    live "/templates/documents/:id/edit", TemplateDocumentLive.Edit, :edit
   end
 
   # Other scopes may use custom stacks.

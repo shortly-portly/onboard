@@ -20,3 +20,4 @@
 
 <span><%= live_patch "Edit", to: Routes.template_show_path(@socket, :edit, @template), class: "button" %></span>
 <span><%= live_redirect "Back", to: Routes.template_index_path(@socket, :index) %></span>
+<span><%= live_redirect "Add Documents", to: Routes.template_document_edit_path(@socket, :edit, @template.id) %></span>
